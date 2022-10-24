@@ -3,9 +3,10 @@
     listens to 0.0.0.0:5000
     
 """
-from models import storage
 from flask import Flask
 from flask import render_template
+from models import *
+from models import storage
 
 app = Flask(__name__)
 
@@ -20,10 +21,10 @@ def states_list():
 
 
 @app.teardown_appcontext
-def teardown(exc):
+def teardown_db(exception):
     """Remove the current SQLAlchemy session."""
     storage.close()
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0")
+    app.run(host="0.0.0.0", port='5000')
